@@ -1,0 +1,17 @@
+[generators]
+cmake
+
+[requires]
+cmake_findboost_modular/1.69.0@bincrafters/stable
+boost/1.69.0
+sqlite3/3.32.3
+sfml/2.5.1@bincrafters/stable
+
+
+[options]
+sfml:graphics=True
+sfml:audio=True
+sfml:window=True
+sfml:network=True
+
+[imports]

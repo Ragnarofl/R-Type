@@ -1,0 +1,129 @@
+R-Type 2020
+PERRAUD Simon
+GREGO Balthazard
+BERGER Yann
+                                                           November 2020
+
+
+                    R-Type communication protocol
+
+Status of this Memo
+
+        This memo provides information for the communication protocol.
+        This memo does not specify an Internet standard of any kind.
+        The Distribution of this memo is unlimited.
+
+GNU license.
+
+Tables of Contents
+
+        1.   Introduction. . . . . . . . . . . . . . . . . . . . . . . 2
+        2.   Communications basis. . . . . . . . . . . . . . . . . . . 2
+        3.   Client to Server - Room management. . . . . . . . . . . . 2
+        4.   Client to Server - Player management. . . . . . . . . . . 3
+        5.   Server to Client - Player management. . . . . . . . . . . 4
+        6.   Server to Client - Enemy management . . . . . . . . . . . 4
+
+
+
+PERRAUD, GREGO & BERGER                                         [Page 2]
+
+R-Type              R-Type communication protocol          November 2020 
+
+    1. Introduction
+
+        This Request for Comments (RFC) provides information about the
+        communication protocol of the R-Type project.
+        Through this RFC I will make sure that you, as a reader, 
+        understand how to communicate with the Server properly.
+
+________________________________________________________________________
+
+    2. Communications's basis
+
+        The server and client communicate through the usage of packet.
+        Packets implementation doesn't matter as long 
+        as their data is ordered.
+        The first part of a packet MUST start by the code assosiated
+        with the action you want to perform. Thoses codes will be
+        listed in the sections below.
+        Here's a quick basic of how it will look like.
+
+        Client to Server communication
+        1XX/Data
+        Example : 105/player_nb:pos_x:pos_y -> Player position update
+
+        Server to Client communication
+        2XX/Data
+        Example : 205/player_nb:pos_x:pos_y -> Player position update
+        800/Error_message
+
+________________________________________________________________________
+
+    3. Client to Server - Room management
+
+        - To create a room, a packet starting with the code 100 MUST be 
+        sent.
+        - To retrieve informations on the different rooms, a packet 
+        starting with the code 101 MUST be sent.
+        - To join a room, a packet starting with the code 102 MUST be 
+        sent followed by the number of the room.
+        - To ask the server what is your position in the lobby, a packet
+        starting with the code 103 MUST be sent.
+        - To leave a room, a packet starting with the code 104 MUST be
+        sent.
+
+
+
+PERRAUD, GREGO & BERGER                                         [Page 3]
+
+R-Type              R-Type communication protocol          November 2020 
+
+    4. Client to Server - Player management
+
+        To manage a player there are several codes you MUST send to the
+        server so the other players can update their game.
+
+        - When your player moves you MUST send the following code
+        105/player_nb:pos_x:pos_y
+        Example : 105/1:130:40
+
+        - When your player shoots you MUST send the following code
+        106/player_nb
+        Example : 106/1
+
+        - When your player dies you MUST send the following code
+        107/player_nb
+        Example : 107/1
+
+        - When your player takes damages you MUST send the following 
+        code 108/player_nb:damages
+        Example : 108/1:5
+
+
+
+PERRAUD, GREGO & BERGER                                         [Page 4]
+
+R-Type              R-Type communication protocol          November 2020 
+
+    5. Server to Client - Player management
+
+        When receiving messages from the clients, the server WILL
+        respond with the following codes. And the data associated
+        with them WILL be the one sent by the client who contacted
+        the server
+
+        - 205/Z:X:Y = The Player Z is now at position X/Y
+        - 206/Z = The player Z shot a bullet
+        - 207/Z = The player Z is dead
+        - 208/Z:X = The Player Z took X damages
+
+________________________________________________________________________
+
+    6. Server to Client - Enemy management
+
+        The server WILL send the following messages to notify the
+        players inside the same room ofwhat happends to the enemies.
+
+        - 209/X = The enemy number X is dead
+        - 210/X:Y = The enemy number X took Y damages

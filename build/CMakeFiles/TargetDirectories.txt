@@ -1,0 +1,4 @@
+/home/simon/Tek3/Projects/B-CPP-501-MPL-5-1-rtype-balthazard.grego/build/CMakeFiles/rebuild_cache.dir
+/home/simon/Tek3/Projects/B-CPP-501-MPL-5-1-rtype-balthazard.grego/build/CMakeFiles/edit_cache.dir
+/home/simon/Tek3/Projects/B-CPP-501-MPL-5-1-rtype-balthazard.grego/build/CMakeFiles/r-type_server.dir
+/home/simon/Tek3/Projects/B-CPP-501-MPL-5-1-rtype-balthazard.grego/build/CMakeFiles/r-type_client.dir
